@@ -40,7 +40,7 @@ demo_data = [
 
 # Create a DataFrame and add predicted sentiment
 df = pd.DataFrame(demo_data)
-df["Actual Sentiment"] = df["Review"].apply(
+df["Predicted Sentiment"] = df["Review"].apply(
     lambda r: model.predict([GoogleTranslator(source='auto', target='ms').translate(r)])[0]
 )
 
