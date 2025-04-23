@@ -2,29 +2,31 @@ import streamlit as st
 import joblib
 from deep_translator import GoogleTranslator
 
-# Load the pre-trained pipeline model (vectorizer + classifier)
-model = joblib.load("svm_model.pkl")  # Ensure this is a pipeline
+# Load separately saved vectorizer and model
+vectorizer = joblib.load("tfidf_vectorizer.pkl")  # Make sure this file exists
+model = joblib.load("svm_model.pkl")              # Should be a classifier like LogisticRegression
 
-# Sentiment analysis function
+# Function to translate and predict sentiment
 def analyze_sentiment(review):
     if review:
         # Translate review to Malay
         translated_review = GoogleTranslator(source='auto', target='ms').translate(review)
 
-        # Predict sentiment using the pipeline
-        sentiment = model.predict([translated_review])[0]
+        # Transform the review using the vectorizer
+        review_vectorized = vectorizer.transform([translated_review])  # Output is 2D
+
+        # Predict sentiment
+        sentiment = model.predict(review_vectorized)[0]
         return sentiment, translated_review
     return None, None
 
-# Streamlit UI setup
+# Streamlit UI
 st.set_page_config(page_title="Sentiment Analysis", layout="centered")
 st.title("📝 Sentiment Analysis App")
-st.write("This app translates your review to **Malay** and predicts its sentiment using a machine learning model.")
+st.write("This app translates your review to **Malay** and predicts its sentiment.")
 
-# Text input
 user_input = st.text_area("Enter your review below:")
 
-# Analyze button
 if st.button("Analyze"):
     sentiment, translated = analyze_sentiment(user_input)
     if sentiment:
