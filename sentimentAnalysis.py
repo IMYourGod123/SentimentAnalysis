@@ -25,9 +25,17 @@ st.write("This app translates your review to **Malay** and predicts its sentimen
 
 # Display demo sentiment comparison table
 demo_data = [
-    {"Review": "I absolutely love this product!", "Actual Sentiment": "Positive"},
-    {"Review": "It's okay, not too bad but nothing great.", "Actual Sentiment": "Neutral"},
-    {"Review": "This was the worst experience ever.", "Actual Sentiment": "Negative"},
+    {"Review": "saya not feeling lucky today", "Actual Sentiment": "Negative", "SVM": "Positive"},
+    {"Review": "that parcel buruk and x betul", "Actual Sentiment": "Negative", "SVM":"Negative"},
+    {"Review": "baju ni okay je pakai", "Actual Sentiment": "Neutral", "SVM":"Neutral"},
+    {"Review": "I like this baju melayu. Customer service sangat baik, dan delivery pun cepat. tq", "Actual Sentiment": "Positive", "SVM":"POsitive"},
+    {"Review": "baju ni okay jer dipakai, kualiti match dgn harga", "Actual Sentiment": "Neutral", "SVM":"Positive"},
+    {"Review": "Kain baju ni teruk ... penghantaran lambat, tak kan repeat order lagi ...", "Actual Sentiment": "Negative", "SVM":"Negative"},
+    {"Review": "baju ni cepat sampai dan baik", "Actual Sentiment": "Positive", "SVM":"Positive"},
+    {"Review": "baju ni kotor dan dont have quality", "Actual Sentiment": "Negative", "SVM":"Positive"},
+    {"Review": "sizing tidak betul aku rasa sedih", "Actual Sentiment": "Negative", "SVM":"Negative"},
+    {"Review": "delivery laju kain cantik thanks seller", "Actual Sentiment": "Positive", "SVM":"Positive"},
+
 ]
 
 # Create a DataFrame and add predicted sentiment
