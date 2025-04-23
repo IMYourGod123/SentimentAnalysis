@@ -1,22 +1,19 @@
+# sentimentAnalysis.py
 import streamlit as st
 import joblib
 from deep_translator import GoogleTranslator
 
-# Load separately saved vectorizer and model
-vectorizer = joblib.load("tfidf_vectorizer.pkl")  # Make sure this file exists
-model = joblib.load("svm_model.pkl")              # Should be a classifier like LogisticRegression
+# Load the saved pipeline (includes both TF-IDF and classifier)
+model = joblib.load("svm_pipeline_model.pkl")
 
 # Function to translate and predict sentiment
 def analyze_sentiment(review):
     if review:
-        # Translate review to Malay
+        # Translate to Malay
         translated_review = GoogleTranslator(source='auto', target='ms').translate(review)
 
-        # Transform the review using the vectorizer
-        review_vectorized = vectorizer.transform([translated_review])  # Output is 2D
-
-        # Predict sentiment
-        sentiment = model.predict(review_vectorized)[0]
+        # Predict using the pipeline
+        sentiment = model.predict([translated_review])[0]
         return sentiment, translated_review
     return None, None
 
